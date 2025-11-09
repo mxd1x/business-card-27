@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Profile Card</title>
+
 <style>
-  :root{
+  :root {
     --bg:#0b0b0b;
     --panel:#0f0f0f;
     --gold1:#f3c767;
@@ -14,270 +15,285 @@
     font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
 
-  html,body{
-    height:100%; margin:0;
-    background:linear-gradient(180deg,#050505 0%, #0b0b0b 100%);
-    display:flex; align-items:center; justify-content:center;
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg,#050505 0%, #0b0b0b 100%);
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .device {
-    margin-top: 50%;
-    width:360px; height:720px;
-    border-radius:32px;
-    background:linear-gradient(180deg,#0c0c0c,#0b0b0b);
-    padding:62px 18px; box-sizing:border-box;
-    box-shadow:0 12px 40px rgba(0,0,0,.7), 0 6px 10px rgba(0,0,0,.6);
-    position:relative;
-    border:3px solid rgba(255,215,120,0.03);
+    width: 360px;
+    border-radius: 32px;
+    background: linear-gradient(180deg,#0c0c0c,#0b0b0b);
+    padding: 60px 18px;
+    box-sizing: border-box;
+    box-shadow: 0 12px 40px rgba(0,0,0,.7), 0 6px 10px rgba(0,0,0,.6);
+    border: 3px solid rgba(255,215,120,0.03);
+    margin: 40px 0;
   }
 
-  .top { display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
-  .logo {
-    width:64px; height:18px; border-radius:6px;
-    border:1px solid rgba(255,215,120,0.12);
-    color:var(--gold1); display:flex; align-items:center; justify-content:center;
-    font-weight:600; font-size:12px; letter-spacing:1px;
+  .greeting {
+    text-align: center;
+    color: #c9b686;
+    font-style: italic;
+    font-size: 16px;
+    margin: 0;
   }
 
-  .greeting { text-align:center; color:#c9b686; font-style:italic; font-size:16px; margin:0; }
-  .name { text-align:center; color:var(--gold2); font-weight:800; font-size:30px; letter-spacing:1px; margin:20px 0 20px 0;  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}
+  .name {
+    text-align: center;
+    color: var(--gold2);
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: 1px;
+    margin: 20px 0;
+    font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+  }
 
   .center {
-    display:flex; gap:16px; align-items:center; justify-content:center;
-    margin-bottom:26px; position:relative;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
   }
 
-  /* Outer glowing ring container */
   .ring-wrap {
-    width:210px; height:210px;
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
+    width: 210px;
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
     filter: drop-shadow(0 6px 20px rgba(255, 180, 60, .12));
   }
 
-  /* Static ring base */
   .ring {
-    width:180px; height:172px;
-    border-radius:50%;
-    position:relative;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 40px rgba(255,200,60,0.25), 0 0 120px rgba(255,200,60,0.06) inset;
+    width: 180px;
+    height: 172px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(255,200,60,0.25),
+                0 0 120px rgba(255,200,60,0.06) inset;
   }
 
-  /* Animated gold border layer */
   .ring::before {
-    content:"";
-    position:absolute; inset:0;
-    border-radius:50%;
-    background:conic-gradient(from 120deg, rgba(255,230,150,0.95), rgba(255,200,80,0.95), rgba(210,160,60,0.85), rgba(255,230,150,0.95));
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 120deg,
+      rgba(255,230,150,0.95),
+      rgba(255,200,80,0.95),
+      rgba(210,160,60,0.85),
+      rgba(255,230,150,0.95)
+    );
     animation: spin 12s linear infinite;
   }
 
-  .ring::after{
-    content:"";
-    position:absolute; inset:8px;
-    border-radius:50%;
+  .ring::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), rgba(0,0,0,0.45));
     filter: blur(6px);
   }
 
   .inner {
-    width:152px; height:152px;
-    border-radius:50%;
-    background:linear-gradient(180deg,#101010,#0b0b0b);
-    display:flex; align-items:center; justify-content:center;
-    position:relative;
-    z-index:2; /* stays above spinning ring */
+    width: 152px;
+    height: 152px;
+    border-radius: 50%;
+    background: linear-gradient(180deg,#101010,#0b0b0b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
   }
 
   .inner img {
-    width:110px; height:110px;
-    border-radius:50%;
-    object-fit:cover;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
   }
- /* ---------- Logo ---------- */
-    .logo {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 10px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,215,0,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
-  /* right info block */
   .meta {
-    width:100px; height:160px;
-    border-left:1px solid rgba(255,215,120,0.06);
-    display:flex; align-items:center; justify-content:center; flex-direction:column;
-    gap:12px; color:var(--muted); font-size:12px;
+    width: 100px;
+    height: 160px;
+    border-left: 1px solid rgba(255,215,120,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
   }
 
   .mapbox {
-    width:48px; height:46px; border-radius:8px;
-    border:1px solid rgba(255,215,120,0.08);
-    display:flex; align-items:center; justify-content:center;
-    text-decoration:none;
+    width: 48px;
+    height: 46px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,215,120,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
   }
 
-  .mapbox:hover { border-color:rgba(255,215,120,0.2); }
+  .mapbox:hover {
+    border-color: rgba(255,215,120,0.2);
+  }
 
   .role {
-    color:#e7d7a7; font-weight:700; font-size:12px; letter-spacing:1px;
-    margin-top:6px; text-align:center;
+    color: #e7d7a7;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    text-align: center;
   }
 
   .company {
-    color:var(--muted); font-size:11px; margin-top:4px; text-align:center;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 4px;
+    text-align: center;
   }
 
   .contact {
-    margin-top:18px; padding:12px 22px;
-    border-radius:12px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-    border:1px solid rgba(255,215,120,0.03);
-    font-size:13px; color:var(--muted);
+    margin-top: 18px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+    border: 1px solid rgba(255,215,120,0.03);
+    font-size: 13px;
+    color: var(--muted);
   }
-  .contact .line { margin:6px 0; color:#cdbb94; font-weight:600; font-size:13px; }
-  .contact small { display:block; color:var(--muted); font-weight:500; font-size:11px; margin-top:3px; }
+
+  .contact .line {
+    margin: 6px 0;
+    color: #cdbb94;
+    font-weight: 600;
+    font-size: 13px;
+  }
 
   .icons {
-    display:flex; gap:18px; justify-content:center; margin-top:20px;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin-top: 20px;
   }
 
   .icon {
-    width:40px; height:40px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    border:1px solid rgba(255,215,120,0.06);
-    background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-    color:var(--gold1);
-    cursor:pointer; transition:transform .18s ease, box-shadow .18s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,215,120,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+    color: var(--gold1);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
   }
-body, html, #app {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-}
 
-body {
-  touch-action: none;
-}
+  .icon:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(255,180,50,0.06);
+  }
 
-#app {
-  height: 100%;
-  font-family: "Montserrat", serif;
-}
-  html, body {
-  height: auto;
-  min-height: 100vh;
-  overflow-y: auto;
-  margin: 0;
-  padding: 40px 0;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
+  .footer {
+    text-align: center;
+    color: #bda96f;
+    font-size: 12px;
+    margin-bottom: 30px;
+    padding: 10px 0;
+    width: 360px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid rgba(255,215,120,0.05);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+  }
 
+  @media(max-width: 420px) {
+    .device, .footer { width: 90%; }
+  }
 
-
-  .icon:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(255,180,50,0.06); }
-
-  @media(max-width:420px){ .device { transform:scale(.95); } }
-  @media(max-width:360px){ .device { transform:scale(.9); } }
 </style>
 </head>
+
 <body>
-  <div class="page-wrap">
-    <div class="device">
 
-      <p class="greeting">Hello, I'm</p>
-      <h1 class="name">Sophia Rocky</h1>
+  <div class="device">
+    <p class="greeting">Hello, I'm</p>
+    <h1 class="name">Sophia Rocky</h1>
 
-      <div class="center">
-        <!-- Spinning golden ring -->
-        <div class="ring-wrap">
-          <div class="ring">
-            <div class="inner">
-              <!-- Replace with your own photo -->
-              <img src="finel img.jpg" alt="Dave Photo">
-            </div>
-          </div>
-        </div>
-
-        <!-- Location link -->
-        <div class="meta">
-          <a href="https://www.google.com/maps/place/Capital+Golden+Tower/@25.1779822,55.2741148,17z" target="_blank" class="mapbox" title="Open on Google Maps">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2C8.686 2 6 4.686 6 8c0 5.25 6 12 6 12s6-6.75 6-12c0-3.314-2.686-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="#cdbb94"/>
-            </svg>
-          </a>
-          <div style="font-size:11px;color:var(--muted);text-align:center;">
-            Capital Golden Tower<br/>
+    <div class="center">
+      <div class="ring-wrap">
+        <div class="ring">
+          <div class="inner">
+            <img src="finel img.jpg" alt="Profile Photo">
           </div>
         </div>
       </div>
 
-      <div style="text-align:center;">
-        <div class="role">CHRO / LEGAL COMPLIANCE OFFICER</div>
-        <div class="company">Black Field Properties L.L.C</div>
-      </div>
-
-      <div class="contact">
-        <div class="line">Mobile (UAE): +971 5830 05881</div>
-      </div>
-
-      <div class="icons">
-        <a href="https://www.linkedin.com/in/sophia-rocky-24a7b613a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app " class="icon" title="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 3a2 2 0 100 4 2 2 0 000-4zM3 8h2v12H3zM8 8h2v1.7c.9-1.5 3.3-1.6 4.3 0V20h-2v-6c0-1.5-.8-2-1.6-2-.9 0-1.6.6-1.6 2V20H8z" fill="#d1b078"/></svg>
+      <div class="meta">
+        <a href="https://www.google.com/maps/place/Capital+Golden+Tower" target="_blank" class="mapbox" title="Open on Google Maps">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C8.686 2 6 4.686 6 8c0 5.25 6 12 6 12s6-6.75 6-12c0-3.314-2.686-6-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z" fill="#cdbb94"/>
+          </svg>
         </a>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=legal@blkfldprop.com" target="_blank" class="icon" title="Email">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6a2 2 0 012-2h14a2 2 0 012 2v1.2L12 13 3 7.2V6zm0 3.1V18a2 2 0 002 2h14a2 2 0 002-2V9.1L12 15 3 9.1z" fill="#d1b078"/></svg>
-        </a>
+        <div style="font-size:11px;color:var(--muted);text-align:center;">
+          Capital Golden Tower<br/>
+        </div>
       </div>
     </div>
 
-    <!-- Perfectly aligned footer -->
-    <footer class="footer">
-      © 2025 Black Field Properties L.L.C — All Rights Reserved
-    </footer>
+    <div style="text-align:center;">
+      <div class="role">CHRO / LEGAL COMPLIANCE OFFICER</div>
+      <div class="company">Black Field Properties L.L.C</div>
+    </div>
+
+    <div class="contact">
+      <div class="line">Mobile (UAE): +971 5830 05881</div>
+    </div>
+
+    <div class="icons">
+      <a href="https://www.linkedin.com/in/sophia-rocky-24a7b613a" class="icon" title="LinkedIn" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M4 3a2 2 0 100 4 2 2 0 000-4zM3 8h2v12H3zM8 8h2v1.7c.9-1.5 3.3-1.6 4.3 0V20h-2v-6c0-1.5-.8-2-1.6-2-.9 0-1.6.6-1.6 2V20H8z" fill="#d1b078"/>
+        </svg>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=legal@blkfldprop.com" target="_blank" class="icon" title="Email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M3 6a2 2 0 012-2h14a2 2 0 012 2v1.2L12 13 3 7.2V6zm0 3.1V18a2 2 0 002 2h14a2 2 0 002-2V9.1L12 15 3 9.1z" fill="#d1b078"/>
+        </svg>
+      </a>
+    </div>
   </div>
 
-  <style>
-    .page-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      background: linear-gradient(180deg,#050505 0%, #0b0b0b 100%);
-    }
+  <footer class="footer">
+    © 2025 Black Field Properties L.L.C — All Rights Reserved
+  </footer>
 
-    .footer {
-      text-align: center;
-      color: #bda96f;
-      font-size: 12px;
-      margin-top: 20px;
-      padding: 10px 0;
-      width: 360px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
-      border-radius: 0 0 20px 20px;
-      border-top: 1px solid rgba(255,215,120,0.05);
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-    }
-    
-</style>
 </body>
 </html>
-
-
